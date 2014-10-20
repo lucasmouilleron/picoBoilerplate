@@ -39,6 +39,12 @@ Bower
     - `cd _build && bower install the_module --save`
     - Then edit `build/config.json` and update the `copyFiles` value so the files from the vendor path are copyied in the public `assets` folder
 
+Pico plugins
+------------
+- Place in `plugins`
+- It is possible to make a plugin run only on a template (on `before_render`, test `$template`)
+
+
 Credits
 -------
 Thanks to guys at http://picocms.org for their great CMS
