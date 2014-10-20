@@ -80,7 +80,8 @@ class Pico_Editor {
 	{
 		if(!isset($_SESSION['pico_logged_in']) || !$_SESSION['pico_logged_in']) die(json_encode(array('error' => 'Error: Unathorized')));
 		$title = isset($_POST['title']) && $_POST['title'] ? strip_tags($_POST['title']) : '';
-		$file = $this->slugify(basename($title));
+		$file = str_replace($this->settings['base_url'], "", strip_tags($title));
+		if($this->endsWith($file,"/")) $file .= "index";
 		if(!$file) die(json_encode(array('error' => 'Error: Invalid file name')));
 		
 		$error = '';

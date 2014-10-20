@@ -10,7 +10,7 @@ Welcome to picoBoilerplate
 
 Yeah ! Yeah ! Yeah !
 
-![Alt text](content/images/bessel.gif)
+![Random ima](content/images/bessel.gif)
 
 Creating Content
 ----------------
