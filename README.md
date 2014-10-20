@@ -1,11 +1,13 @@
 picoBoilerplate
 ===============
 
+picoCMS is a lightweight flat file CMS.
+
 Features
 --------
 - A nice picoCMS web boiler plate
-- Stack : picoCMS, scss, requirejs, bootstrap, fontawesome
-- Build : install, build, watch, grunt, bower
+- Stack : picoCMS, twig, scss, requirejs, bootstrap, fontawesome
+- Build : install, build, watch, composer, grunt, bower
 
 Install
 -------
@@ -14,6 +16,10 @@ Install
 - `sudo npm install grunt -g`
 - `sudo gem install sass`
 - `sudo gem install --pre sass-css-importer`
+- Install composer :
+    - `curl -sS https://getcomposer.org/installer | php`
+    - `mv composer.phar /usr/local/bin/composer`
+- `composer install`
 
 Build
 -----

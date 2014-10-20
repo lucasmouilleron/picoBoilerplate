@@ -3,7 +3,7 @@ Title: Sub Page
 Template: other
 */
 
-## This is a Sub Page
+## This is a sub page, with an other template
 
 This is page.md in the "sub" folder.
 

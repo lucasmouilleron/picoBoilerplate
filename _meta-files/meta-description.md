@@ -1,5 +1,6 @@
-Our web picoBoilerplate.
+picoCMS is a lightweight flat file CMS.
 
-- Based on http://picocms.org
-- Stack : picoCMS, scss, requirejs, bootstrap, fontawesome
-- Build : install, build, watch, grunt, bower
+Features :
+- A nice picoCMS boilerplate with a custom plugin implementation
+- Stack : picoCMS, twig, scss, requirejs, bootstrap, fontawesome
+- Build : install, build, watch, composer, grunt, bower

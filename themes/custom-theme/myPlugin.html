@@ -30,8 +30,15 @@
 	<!-- /////////////////////////////////////////////////////////////// -->
 	<div class="container">
 		<section id="content">
-			<p>And this is another template</p>
 			{{ content }}
+
+			{% for reddit in reddits %}
+				<div class="reddit">
+					<h2>{{ reddit.data.title }}	</h2>
+					<p><a href="http://reddit.com/{{ reddit.data.permalink }}" target="_blank">http://reddit.com/{{ reddit.data.permalink }}</a></p>
+					<img src=" {{ reddit.data.thumbnail }} "/>
+				</div>
+			{% endfor %}
 		</section>
 	</div>
 

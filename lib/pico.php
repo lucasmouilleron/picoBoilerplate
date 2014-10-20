@@ -262,6 +262,7 @@ class Pico {
 		if($order == 'desc') krsort($sorted_pages);
 		else ksort($sorted_pages);
 		
+		//var_dump($sorted_pages);
 		return $sorted_pages;
 	}
 	
