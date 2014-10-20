@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" class="no-js">
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width initial-scale=1.0">
+    
+    <title>{% if meta.title %}{{ meta.title }} | {% endif %}{{ site_title }}</title>
+    {% if meta.description %}
+    <meta name="description" content="{{ meta.description }}"> 
+    {% endif %}{% if meta.robots %}
+    <meta name="robots" content="{{ meta.robots }}">
+    {% endif %}
+    
+    <link rel="stylesheet" href="{{ theme_url }}/assets/css/main.css" type="text/css" />
+    <script src="{{ theme_url }}/assets/js/modernizr.js"></script>
+</head>
+<body>
+
+
+    <!-- /////////////////////////////////////////////////////////////// -->
+    <div class="container">
+        <header id="header">
+            <div  class="jumbotron">
+                <div class="logo"><a href="{{ base_url }}">{{ site_title }}</a></div>
+                {{ myNavigation.navigation }}
+            </div>
+        </header>
+    </div>
+
+    <!-- /////////////////////////////////////////////////////////////// -->
+    <div class="container">
+        <section id="content">
+
+            {{ content }}
+
+            {% for tag, tagPages in tags %}
+            <div class="tag-result">
+                <h3><i class="fa fa-tag"></i> <a href="{{ base_url }}/tag/{{ tag }}">{{ tag }}</a></h3>
+                <ul>
+                    {% for page in tagPages %}
+                    <li><a href="{{ page.url }}">{{ page.title }}</a></li>
+                    {% endfor %}
+                </ul>
+            </div>
+            {% endfor %}
+        </section>
+    </div>
+
+    <!-- /////////////////////////////////////////////////////////////// -->    
+    <div class="container">
+        <footer id="footer">
+            A very cool footer !
+        </footer>
+    </div>
+
+
+    <!-- /////////////////////////////////////////////////////////////// -->
+    <script data-main="{{ theme_url }}/assets/js/scripts.min" src="{{ theme_url }}/assets/js/require.js"></script>
+
+</body>
+</html>

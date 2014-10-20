@@ -1,6 +1,8 @@
 /*
-Title: Sub Page
+Title: Sub page
 Template: other
+Order: 3
+Tags: abc,def
 */
 
 ## This is a sub page, with an other template

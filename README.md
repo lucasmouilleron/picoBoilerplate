@@ -41,9 +41,28 @@ Bower
 
 Pico plugins
 ------------
-- Place in `plugins`
-- It is possible to make a plugin run only on a template (on `before_render`, test `$template`)
+- `myMetas` : 
+    - adds custom metas in contents
+    - metas defined in `config.php`
+- `myNavigation` : 
+    - adds custom navigation to templates 
+    - users meta `status` wehter to display or not a page (`draft` is hidden, default status is `published`)
+    - uses meta `order` (number)
+- `myTags` :
+    - adds `tags` to content
+    - `tags.html` template must be defined to list all tags (use `{% for tag, tagPages in tags %}`)
+    - `tag.html` template must be defined to list all pages of a tag (use `{% for page in pages %}` and `{{ meta.currentTag }}`)
+- `myPlugin` :
+    - example of a plugin running only on a template (on `before_render`, test `$template`)
+- `pico_editor` : 
+    - admin interface on `/admin`
+    - edit the admin password from `config.php`
+    - bug fix : `$file = str_replace($this->settings['base_url'], "", strip_tags($file_url)); if($this->endsWith($file,"/")) $file .= "index";`
 
+Admin
+-----
+- With plugin https://github.com/gilbitron/Pico-Editor-Plugin
+- `http://thecmsurl.com/admin`
 
 Credits
 -------

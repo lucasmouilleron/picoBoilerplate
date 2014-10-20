@@ -1,23 +1,12 @@
 <?php
 
-/**
- * navigation plugin which generates a better configurable navigation with endless children navigations
- *
- * @author Ahmet Topal
- * @link http://ahmet-topal.com
- * @license http://opensource.org/licenses/MIT
- */
-class myNavigation {   
-    ##
-    # VARS
-    ##
+class myNavigation {
+
+    ////////////////////////////////////////////////////////////////////////////
     private $settings = array();
     private $navigation = array();
     
-    ##
-    # HOOKS
-    ##
-    
+    ////////////////////////////////////////////////////////////////////////////
     public function get_pages(&$pages, &$current_page, &$prev_page, &$next_page)
     {
         $navigation = array();
@@ -30,12 +19,10 @@ class myNavigation {
                 $navigation = array_replace_recursive($navigation, $this->at_recursive($_split, $page, $current_page));
             }
         }
-        
-        //array_multisort($navigation, SORT_ASC,SORT_NUMERIC);
-        //var_dump($navigation);
         $this->navigation = $navigation;
     }
     
+    ////////////////////////////////////////////////////////////////////////////
     public function config_loaded(&$settings)
     {
         $this->settings = $settings;
@@ -55,15 +42,13 @@ class myNavigation {
             );
     }
     
+    ////////////////////////////////////////////////////////////////////////////
     public function before_render(&$twig_vars, &$twig)
     {
         $twig_vars['myNavigation']['navigation'] = $this->at_build_navigation($this->navigation, true);
     }
 
-    ##
-    # HELPER
-    ##
-    
+    ////////////////////////////////////////////////////////////////////////////
     private function at_build_navigation($navigation = array(), $start = false)
     {
         $id = $start ? $this->settings['at_navigation']['id'] : '';
@@ -78,7 +63,7 @@ class myNavigation {
             $_child = $navigation['_child'];
             $orders = Array();
             foreach ($_child as $c) {
-                if($c["order"] == "") {
+                if(!isset($c["order"]) || $c["order"] == "") {
                     $c["order"] = 9999999;
                 }
                 $orders[] = $c["order"];
@@ -93,7 +78,7 @@ class myNavigation {
             $child = $start ? sprintf($ul, $id, $class, $child) : sprintf($ul, $child);
         }
         
-        if($navigation["status"] == "draft") return null;
+        if(@$navigation["status"] == "draft") return null;
         $li = isset($navigation['title'])
         ? sprintf(
             '<li class="%1$s %5$s"><a href="%2$s" class="%1$s %6$s" title="%3$s">%3$s</a>%4$s</li>',
@@ -110,6 +95,7 @@ class myNavigation {
         return $li;
     }
     
+    ////////////////////////////////////////////////////////////////////////////
     private function at_exclude($page)
     {
         $exclude = $this->settings['at_navigation']['exclude'];
@@ -141,6 +127,7 @@ class myNavigation {
         return false;
     }
     
+    ////////////////////////////////////////////////////////////////////////////
     private function at_recursive($split = array(), $page = array(), $current_page = array())
     {
         $activeClass = (isset($this->settings['at_navigation']['activeClass'])) ? $this->settings['at_navigation']['activeClass'] : 'is-active';

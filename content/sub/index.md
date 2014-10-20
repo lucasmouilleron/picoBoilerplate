@@ -1,8 +1,10 @@
 /*
-Title: Sub Page Index
+Title: Sub page index
+Order: 3
 */
 
-## This is a Sub Page Index
+This is a Sub Page Index
+========================
 
 This is index.md in the "sub" folder.
 

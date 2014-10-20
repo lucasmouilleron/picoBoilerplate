@@ -21,7 +21,7 @@
 	<div class="container">
 		<header id="header">
 			<div  class="jumbotron">
-				<h1><a href="{{ base_url }}">{{ site_title }}</a></h1>
+				<div class="logo"><a href="{{ base_url }}">{{ site_title }}</a></div>
 				{{ myNavigation.navigation }}
 			</div>
 		</header>
@@ -34,6 +34,18 @@
 			{{ content }}
 		</section>
 	</div>
+
+	<!-- /////////////////////////////////////////////////////////////// -->	
+	{% if meta.tags is not empty %}
+	<div class="container">
+		<div class="tags">
+			<i class="fa fa-tag"></i>
+			{% for tag in meta.tags %}
+			<a href="{{ base_url }}/tag/{{ tag }}">{{ tag }}</a> 
+			{% endfor %}
+		</div>
+	</div>
+	{% endif %}
 
 	<!-- /////////////////////////////////////////////////////////////// -->	
 	<div class="container">

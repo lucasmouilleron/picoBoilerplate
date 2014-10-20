@@ -22,8 +22,22 @@ html,body {
     height:100%;
 }
 
-.jumbotron {
-    margin-top:70px;
+.container {
+    .jumbotron {
+        @include border-top-right-radius(0);
+        @include border-top-left-radius(0);
+        @include border-bottom-right-radius(10px);
+        @include border-bottom-left-radius(10px);
+    }
+
+    img {
+        max-width: 100%;
+    }
+}
+
+table {
+    @extend .table;
+    @extend .table-striped;
 }
 
 footer {
@@ -40,5 +54,37 @@ a, a:hover {
 header {
     .active {
         color:$loudColor;
+    }
+
+    .logo {
+        font-size:5em;
+    }
+
+    ul {
+        ul {
+            margin-left:20px;
+        }
+    }
+}
+
+.tags {
+    margin-top:30px;
+
+    a {
+        border:1px dashed $mediumColor;
+        background-color:$lightColor;
+        padding:4px 7px;
+        margin:0 3px;
+        color:$mediumColor;
+        @include border-radius(3px);
+    }
+}
+
+.tag-result {
+
+    margin-bottom:40px;
+
+    .tags {
+        margin-top:0;
     }
 }
