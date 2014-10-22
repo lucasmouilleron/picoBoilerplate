@@ -1,9 +1,8 @@
 <?php
 
 ////////////////////////////////////////////////////////////////////////////
-require_once __DIR__."/../vendor/autoload.php";
 define("REDDIT_API_URL","http://api.reddit.com/hot");
-define("CACHE_PATH",__DIR__."/../lib/cache/");
+define("CACHE_PATH",CACHE_DIR);
 
 class myPlugin {
 

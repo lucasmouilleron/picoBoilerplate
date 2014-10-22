@@ -7,7 +7,10 @@
         "rmccue/requests": ">=1.0",
         "gilbitron/php-simplecache": "~1.4"
     },
+    "config": {
+        "vendor-dir": "libs/vendor"
+    },
     "autoload": {
-        "files": ["lib/pico.php"]
+        "files": ["libs/pico.php"]
     }
 }

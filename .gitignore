@@ -1,7 +1,7 @@
 _dev/js/vendor
-lib/cache
+cache
 composer.lock
-vendor
+libs/vendor
 
 #################################################################################
 # miscs
