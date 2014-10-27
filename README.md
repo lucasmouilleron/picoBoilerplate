@@ -9,8 +9,8 @@ Features
 - Stack : picoCMS, twig, scss, requirejs, bootstrap, fontawesome
 - Build : install, build, watch, composer, grunt, bower
 
-Install
--------
+Install requirements
+--------------------
 - Install NodeJS : http://nodejs.org/download
 - `sudo npm install bower -g`
 - `sudo npm install grunt -g`
@@ -19,7 +19,11 @@ Install
 - Install composer :
     - `curl -sS https://getcomposer.org/installer | php`
     - `mv composer.phar /usr/local/bin/composer`
+
+Install
+-------
 - `composer install`
+- `cd build && npm install`
 
 Build
 -----
