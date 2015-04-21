@@ -27,10 +27,4 @@ $config["twig_config"] = array(
     "debug" => true
     );
 
-////////////////////////////////////////////////////////////////////
-// admin password
-// Use a tool like http://www.sha1-online.com to generate
-global $pico_editor_password;
-$pico_editor_password = "d033e22ae348aeb5660fc2140aec35850c4da997";
-
 ?>

@@ -3,14 +3,13 @@ module.exports = function(grunt) {
   /////////////////////////////////////////////////////////////////////////
   grunt.initConfig({
     pkg: grunt.file.readJSON("package.json"),
-    cfg: grunt.file.readJSON("config.json"),
-    webDir:"../",
+    cfg: grunt.file.readJSON("package.local.json"),
     availabletasks: {
       tasks: {
         options: {
           sort: true,
           filter: "include",
-          tasks: ["default","install", "cleanup","speed","compile:images","watch","build","watch:scripts", "compile:scripts", "compile:styles", "watch:styles"]
+          tasks: ["default","install", "cleanup","compile:images","watch","build","watch:scripts", "compile:scripts", "compile:styles", "watch:styles"]
         }
       }
     },
@@ -22,17 +21,33 @@ module.exports = function(grunt) {
       },
       install: {
         command: function() {
-          return "bower cache clean && bower install";
+          return "npm install";
         }
       },
     },
-    requirejs: {
-      compile: {
+    browserify: {
+      watch: {
+        files: {
+          "<%=pkg.config.dirs.js%>/_build.js": ["<%=pkg.config.dirs.js%>/main.js"],
+        },
         options: {
-          baseUrl: "<%=cfg.jsDevDir%>",
-          mainConfigFile: "<%=cfg.jsMainFile%>",
-          name: "<%=cfg.jsMainName%>",
-          out: "<%=cfg.jsMinFile%>"
+          watch: true
+        }
+      },
+      compile: {
+        files: {
+          "<%=pkg.config.dirs.js%>/_build.js": ["<%=pkg.config.dirs.js%>/main.js"],
+        }
+      }
+    },
+    uglify: {
+      options: {
+        report: "min",
+        mangle: false
+      },
+      dist: {
+        files: {
+          "<%=pkg.config.dirs.js%>/_build.js": ["<%=pkg.config.dirs.js%>/_build.js"]
         }
       }
     },
@@ -40,16 +55,15 @@ module.exports = function(grunt) {
       compile: {
         options: {
           httpPath: "<%=cfg.baseURL%>",
-          sassDir: "<%=cfg.sassDir%>",
-          cssDir: "<%=cfg.cssDir%>",
-          imagesDir: "<%=cfg.imgDir%>",
-          fontsDir: "<%=cfg.fontsDir%>",
-          httpStylesheetsPath:"<%=cfg.cssDir%>",
-          cacheDir: "<%=localDir%>/.sass-cache",
+          sassDir: "<%=pkg.config.dirs.sass%>",
+          cssDir: "<%=pkg.config.dirs.css%>",
+          imagesDir: "<%=pkg.config.dirs.img%>",
+          fontsDir: "<%=pkg.config.dirs.fonts%>",
+          cacheDir: ".sass-cache",
           outputStyle:"compressed",
-          force: true,
           relativeAssets:true,
           lineComments:false,
+          force: true,
           raw: "preferred_syntax = :sass\n",
           environment: "production",
           require: ["sass-css-importer"]
@@ -57,17 +71,13 @@ module.exports = function(grunt) {
       }
     },
     watch: {
-      js: {
-        files: ["<%=cfg.jsDevDir%>/**/*.js"],
-        tasks: ["compile:scripts"]
-      },
       sass: {
-        files: ["<%=cfg.sassDir%>/**/*.scss"],
+        files: ["<%=pkg.config.dirs.sass%>/**/*.scss"],
         tasks: ["compile:styles"]
       },
-      everything: {
-        files: ["<%=cfg.sassDir%>/**/*.scss", "<%=cfg.jsDevDir%>/**/*.js"],
-        tasks: ["compile:scripts", "compile:styles"]
+      fake: {
+        files: ["fake"],
+        tasks: ["default"]
       }
     },
     clean: {
@@ -75,12 +85,12 @@ module.exports = function(grunt) {
         force: true 
       },
       default: {
-        src: "<%=cfg.cleanFiles%>"
+        src: "<%=pkg.config.cleanFiles%>"
       }
-    },   
+    },
     copyFiles: {
       main: {
-        files: "<%=cfg.copyFiles%>"
+        files: "<%=pkg.config.copyFiles%>"
       }
     },
     autoprefixer: {
@@ -90,9 +100,9 @@ module.exports = function(grunt) {
      default: {
        files: [{
         expand: true, 
-        cwd: "<%=cfg.cssDir%>/",
+        cwd: "<%=pkg.config.dirs.css%>/",
       src: "{,*/}*.css",
-      dest: "<%=cfg.cssDir%>/"
+      dest: "<%=pkg.config.dirs.css%>/"
     }]
   }
 }
@@ -101,20 +111,20 @@ module.exports = function(grunt) {
   /////////////////////////////////////////////////////////////////////////
   grunt.loadNpmTasks("grunt-available-tasks");
   grunt.loadNpmTasks("grunt-contrib-watch");
-  grunt.loadNpmTasks("grunt-contrib-requirejs");
   grunt.loadNpmTasks("grunt-contrib-compass");
   grunt.loadNpmTasks("grunt-contrib-clean");
   grunt.loadNpmTasks("grunt-autoprefixer");
   grunt.loadNpmTasks("grunt-shell");
+  grunt.loadNpmTasks("grunt-contrib-uglify");
+  grunt.loadNpmTasks("grunt-browserify");
 
   /////////////////////////////////////////////////////////////////////////
   grunt.registerTask("default", "These help instructions",["availabletasks"]);
   grunt.registerTask("cleanup", "Clean project",["clean:default"]);
   grunt.registerTask("install", "Install the project",["shell:install", "copyFiles:main"]);
-  grunt.registerTask("watch:scripts", "Watch and compile js files",["watch:js"]);
-  grunt.registerTask("watch:all", "Watch all (scripts + styles)",["watch:everything"]);
   grunt.registerTask("watch:styles", "Compile sass files",["watch:sass"]);
-  grunt.registerTask("compile:scripts", "Compile js files",["requirejs:compile"]);
+  grunt.registerTask("compile:scripts", "Compile js files",["browserify:compile","uglify:dist"]);
+  grunt.registerTask("watch:scripts", "Watch and compile js files",["browserify:watch", "watch:fake"]);
   grunt.registerTask("compile:styles", "Watch and compile sass files",["compass:compile","autoprefixer"]);
   grunt.registerTask("build", "Build all (scripts + styles)",["install", "compile:styles","compile:scripts"]);
 

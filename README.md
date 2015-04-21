@@ -23,25 +23,19 @@ Install requirements
 Install
 -------
 - `composer install`
-- `cd build && npm install`
+- `npm install`
 
 Build
 -----
-- modify ```_build/config.json``` if needed
-- ```cd _build```
-- ```npm install && grunt build```
+- Edit the `package.json` file
+- `grunt build` to build everything
+- `grunt watch:scripts` while coding
 
-Bower
------
-- Add a requirejs module from bower :
-    - `cd _build && bower install the_module --save`
-    - Then, add path to `_dev/js/libs/vendor/the_module/path/to/jsFile` in `_dev/main.js` in path section and include module name in the `requirejs` call
-- Add a css from bower : 
-    - `cd _build && bower install the_module --save`
-    - Then edit `_dev/scss/main.scss` and add @import `"CSS:../js/libs/vendor/the_module/the_css_path/the_css_file_without_extension";`
-- Add a public resource from bower : 
-    - `cd _build && bower install the_module --save`
-    - Then edit `build/config.json` and update the `copyFiles` value so the files from the vendor path are copyied in the public `assets` folder
+Browserify, CommonJS, dependencies
+----------------------------------
+- Browserify is used to compile the app
+- If module is not CommonJS, use `browserify-shim` (for shimming and deps) and `browser` (for aliases) in `package.json`
+- If module is not available via bower or npm, use napa
 
 Pico plugins
 ------------
@@ -58,15 +52,10 @@ Pico plugins
     - `tag.html` template must be defined to list all pages of a tag (use `{% for page in pages %}` and `{{ meta.currentTag }}`)
 - `myPlugin` :
     - example of a plugin running only on a template (on `before_render`, test `$template`)
-- `pico_editor` : 
-    - admin interface on `/admin`
-    - edit the admin password from `config.php`
-    - bug fix : `$file = str_replace($this->settings['base_url'], "", strip_tags($file_url)); if($this->endsWith($file,"/")) $file .= "index";`
 
 Admin
 -----
-- With plugin https://github.com/gilbitron/Pico-Editor-Plugin
-- `http://thecmsurl.com/admin`
+- ftp and edit `content` files
 
 Credits
 -------
