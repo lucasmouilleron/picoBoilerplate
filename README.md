@@ -22,7 +22,7 @@ Install requirements
 
 Install
 -------
-- `composer install`
+- `curl -sS https://getcomposer.org/installer | php && composer install` (or `php composer.phar install`)
 - `npm install`
 
 Build
