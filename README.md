@@ -3,6 +3,8 @@ picoBoilerplate
 
 picoCMS is a lightweight flat file CMS.
 
+![Screenshot](http://grabs.lucasmouilleron.com/Screen%20Shot%202015-11-23%20at%2015.49.30.png)
+
 Features
 --------
 - A nice picoCMS web boiler plate
